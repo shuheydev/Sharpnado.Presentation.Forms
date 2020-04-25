@@ -54,6 +54,14 @@ namespace Sharpnado.Presentation.Forms.Droid.Renderers.HorizontalList
                     return 0;
                 }
 
+                switch (_horizontalList.MovementDirection)
+                {
+                    case HorizontalListViewMovementDirection.VerticalOnly:
+                        return MakeMovementFlags(ItemTouchHelper.Up | ItemTouchHelper.Down, 0);
+                    case HorizontalListViewMovementDirection.HorizontalOnly:
+                        return MakeMovementFlags(ItemTouchHelper.Left | ItemTouchHelper.Right, 0);
+                }
+
                 return MakeMovementFlags(ItemTouchHelper.Left | ItemTouchHelper.Right | ItemTouchHelper.Up | ItemTouchHelper.Down, 0);
             }
 

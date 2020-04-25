@@ -32,6 +32,13 @@ namespace Sharpnado.Presentation.Forms.RenderedViews
         Slowest,
     }
 
+    public enum HorizontalListViewMovementDirection
+    {
+        Free = 0,
+        VerticalOnly,
+        HorizontalOnly,
+    }
+
     public class DraggableViewCell : ViewCell
     {
         public static readonly BindableProperty IsDraggableProperty = BindableProperty.Create(
@@ -164,6 +171,13 @@ namespace Sharpnado.Presentation.Forms.RenderedViews
             typeof(HorizontalListView),
             defaultValue: false);
 
+        public static readonly BindableProperty MovementDirectionProperty = BindableProperty.Create(
+            nameof(MovementDirection),
+            typeof(HorizontalListViewMovementDirection),
+            typeof(HorizontalListView),
+            HorizontalListViewMovementDirection.Free,
+            propertyChanged:OnMovementDirectionChanged);
+
         public int CurrentIndex
         {
             get => (int)GetValue(CurrentIndexProperty);
@@ -268,6 +282,12 @@ namespace Sharpnado.Presentation.Forms.RenderedViews
         {
             get => (bool)GetValue(IsDragAndDroppingProperty);
             set => SetValue(IsDragAndDroppingProperty, value);
+        }
+
+        public HorizontalListViewMovementDirection MovementDirection
+        {
+            get => (HorizontalListViewMovementDirection)GetValue(MovementDirectionProperty);
+            set => SetValue(MovementDirectionProperty, value);
         }
 
         public int ViewCacheSize { get; set; } = 0;
@@ -382,6 +402,10 @@ namespace Sharpnado.Presentation.Forms.RenderedViews
         }
 
         private static void OnVisibleCellCountChanged(BindableObject bindable, object oldvalue, object newvalue)
+        {
+        }
+
+        private static void OnMovementDirectionChanged(BindableObject bindable, object oldValue, object newValue)
         {
         }
     }
